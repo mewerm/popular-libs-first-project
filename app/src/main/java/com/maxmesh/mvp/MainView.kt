@@ -1,6 +1,7 @@
 package com.maxmesh.mvp
 
 interface MainView {
-
-    fun setText(counter: String, position: Int)
+    fun setDigitOne(counter: String)
+    fun setDigitTwo(counter: String)
+    fun setDigitThree(counter: String)
 }

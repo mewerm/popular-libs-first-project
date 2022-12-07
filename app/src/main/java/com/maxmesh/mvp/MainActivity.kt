@@ -18,27 +18,31 @@ class MainActivity : AppCompatActivity(), MainView {
         initClicks()
     }
 
-    private fun initClicks() = with(binding){
-            btnOne.setOnClickListener {
-                presenter.onCounterClick(R.id.btnOne)
-            }
-            btnTwo.setOnClickListener {
-                presenter.onCounterClick(R.id.btnTwo)
-            }
-            btnThree.setOnClickListener {
-                presenter.onCounterClick(R.id.btnThree)
+    private fun initClicks() = with(binding) {
+        btnOne.setOnClickListener {
+            presenter.onFirstBtnClicked()
         }
+        btnTwo.setOnClickListener {
+            presenter.onSecondBtnClicked()
+        }
+        btnThree.setOnClickListener {
+            presenter.onThirdBtnClicked()
+        }
+    }
+
+    override fun setDigitOne(counter: String) = with(binding) {
+        tvTextOne.text = counter
+    }
+
+    override fun setDigitTwo(counter: String) = with(binding) {
+        tvTextTwo.text = counter
+    }
+
+    override fun setDigitThree(counter: String) = with(binding) {
+        tvTextThree.text = counter
     }
 
     private fun initPresenter() {
         presenter = CountersPresenter(this)
-    }
-
-    override fun setText(counter: String, position: Int): Unit = with(binding) {
-        when (position) {
-            0 -> tvTextOne.text = counter
-            1 -> tvTextTwo.text = counter
-            2 -> tvTextThree.text = counter
-        }
     }
 }
