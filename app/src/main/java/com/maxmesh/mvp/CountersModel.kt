@@ -2,13 +2,12 @@ package com.maxmesh.mvp
 
 class CountersModel {
 
-    private val counters = mutableListOf(0, 0, 0)
+    private val firstCount = 0
+    private val secondCount = 0
+    private val thirdCount = 0
 
-    fun getCurrentCounter(position: Int) = counters[position]
+    private val counters = mutableListOf(firstCount, secondCount, thirdCount)
 
     fun getNewCounter(position: Int) = counters[position]++
 
-    fun changeCounter(position: Int, value: Int){
-        counters[position] = value
-    }
 }

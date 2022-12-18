@@ -1,44 +1,44 @@
 package com.maxmesh.mvp
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import com.maxmesh.mvp.databinding.ActivityMainBinding
+import moxy.MvpAppCompatActivity
+import moxy.ktx.moxyPresenter
 
-class MainActivity : AppCompatActivity(), MainView {
+class MainActivity : MvpAppCompatActivity(), MainView {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var presenter: CountersPresenter
+    private val presenter by moxyPresenter { CountersPresenter(CountersModel()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initPresenter()
         initClicks()
     }
 
-    private fun initClicks() = with(binding){
-            btnOne.setOnClickListener {
-                presenter.onCounterClick(R.id.btnOne)
-            }
-            btnTwo.setOnClickListener {
-                presenter.onCounterClick(R.id.btnTwo)
-            }
-            btnThree.setOnClickListener {
-                presenter.onCounterClick(R.id.btnThree)
+    private fun initClicks() = with(binding) {
+        btnOne.setOnClickListener {
+            presenter.onFirstBtnClicked()
+        }
+        btnTwo.setOnClickListener {
+            presenter.onSecondBtnClicked()
+        }
+        btnThree.setOnClickListener {
+            presenter.onThirdBtnClicked()
         }
     }
 
-    private fun initPresenter() {
-        presenter = CountersPresenter(this)
+    override fun setDigitOne(counter: String) = with(binding) {
+        tvTextOne.text = counter
     }
 
-    override fun setText(counter: String, position: Int): Unit = with(binding) {
-        when (position) {
-            0 -> tvTextOne.text = counter
-            1 -> tvTextTwo.text = counter
-            2 -> tvTextThree.text = counter
-        }
+    override fun setDigitTwo(counter: String) = with(binding) {
+        tvTextTwo.text = counter
+    }
+
+    override fun setDigitThree(counter: String) = with(binding) {
+        tvTextThree.text = counter
     }
 }

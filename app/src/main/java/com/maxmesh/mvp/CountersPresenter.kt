@@ -1,24 +1,18 @@
 package com.maxmesh.mvp
 
-class CountersPresenter(private val view: MainView) {
+import moxy.MvpPresenter
 
-    private val model = CountersModel()
+class CountersPresenter(private val model: CountersModel) : MvpPresenter<MainView>()  {
 
-    fun onCounterClick(id: Int) {
+    fun onFirstBtnClicked() {
+        viewState.setDigitOne(model.getNewCounter(0).toString())
+    }
 
-        when (id) {
-            R.id.btnOne -> {
-                val newValue = model.getNewCounter(0)
-                view.setText(newValue.toString(), 0)
-            }
-            R.id.btnTwo -> {
-                val newValue = model.getNewCounter(1)
-                view.setText(newValue.toString(), 1)
-            }
-            R.id.btnThree -> {
-                val newValue = model.getNewCounter(2)
-                view.setText(newValue.toString(),2)
-            }
-        }
+    fun onSecondBtnClicked() {
+        viewState.setDigitTwo(model.getNewCounter(1).toString())
+    }
+
+    fun onThirdBtnClicked() {
+        viewState.setDigitThree(model.getNewCounter(2).toString())
     }
 }
